@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+let initialState = {
+  isLoginOpen : true,
+  isRegisterOpen: false
+}
+
+var store = createStore({},initialState)
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

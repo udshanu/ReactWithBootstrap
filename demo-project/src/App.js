@@ -5,10 +5,16 @@ import { About } from "./components/about/about";
 import { Contact } from "./components/contact/contact";
 import { NoMatch } from "./components/nomatch/nomatch";
 import { Layout } from "./components/layout/layout";
+import { NavigationBar } from './components/navigationbar/navigationbar';
+import { Jumbotron } from './components/jumbotron/jumbotron';
+import { Main } from './components/login/main';
 
 function App() {
   return (
     <React.Fragment>
+      <NavigationBar />
+      <Jumbotron />
+      <Main/>
       <Layout>
       <Router>
         <Switch>
