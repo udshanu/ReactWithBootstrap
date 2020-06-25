@@ -4,20 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
-let initialState = {
-  isLoginOpen : true,
-  isRegisterOpen: false
-}
-
-var store = createStore({},initialState)
-
 ReactDOM.render(
-  <Provider store={store}>
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-  </Provider>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

@@ -1,5 +1,7 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { store } from './actions/store';
 import { Home } from "./components/home/home";
 import { About } from "./components/about/about";
 import { Contact } from "./components/contact/contact";
@@ -11,7 +13,8 @@ import { Main } from './components/login/main';
 
 function App() {
   return (
-    <React.Fragment>
+    <Provider store={store}>
+      <React.Fragment>
       <NavigationBar />
       <Jumbotron />
       <Main/>
@@ -26,6 +29,7 @@ function App() {
       </Router>
       </Layout>
     </React.Fragment>
+    </Provider>
   );
 }
 
