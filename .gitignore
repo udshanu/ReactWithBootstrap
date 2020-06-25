@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/DemoProjectWebApi/.vs/DemoProjectWebApi
+/DemoProjectWebApi/DemoProjectWebApi/bin/Debug/netcoreapp3.1
+/DemoProjectWebApi/DemoProjectWebApi/obj
