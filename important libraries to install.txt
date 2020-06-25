@@ -3,3 +3,4 @@ create-react-app react-bootstrap
 1.npm i -s react-router-dom
 2.npm i -s react-bootstrap bootstrap
 3.npm i -s styled-components
+4.npm i -s redux react-redux redux-thunk
