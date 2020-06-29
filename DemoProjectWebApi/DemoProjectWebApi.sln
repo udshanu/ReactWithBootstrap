@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProjectWebApi", "DemoProjectWebApi\DemoProjectWebApi.csproj", "{5C41FA9E-AE7A-4183-8689-84508A072A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.DataAccess", "EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj", "{8C8511C4-5023-453D-A5BC-15378CD6F201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.DataAccess", "EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj", "{8C8511C4-5023-453D-A5BC-15378CD6F201}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Service", "EmployeeManagement.Service\EmployeeManagement.Service.csproj", "{5896818F-C622-45CA-8DAB-B5B236A531DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Service", "EmployeeManagement.Service\EmployeeManagement.Service.csproj", "{5896818F-C622-45CA-8DAB-B5B236A531DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -29,6 +29,8 @@ namespace EmployeeManagement.Service
             this.context.SaveChanges();
 
             return employee;
+
+            //throw new NotImplementedException();
         }
 
         public Employee Delete(int Id)
@@ -42,16 +44,19 @@ namespace EmployeeManagement.Service
             }
 
             return employee;
+            //throw new NotImplementedException();
         }
 
         public IEnumerable<Employee> GetAllEmployee()
         {
             return this.context.Employees;
+            //throw new NotImplementedException();
         }
 
         public Employee GetEmployee(int Id)
         {
             return this.context.Employees.Find(Id);
+            //throw new NotImplementedException();
         }
 
         public Employee Update(Employee employeeChanges)
@@ -61,6 +66,8 @@ namespace EmployeeManagement.Service
             this.context.SaveChanges();
 
             return employeeChanges;
+
+            //throw new NotImplementedException();
         }
     }
 }

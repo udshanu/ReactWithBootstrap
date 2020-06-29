@@ -7,6 +7,7 @@ using EmployeeManagement.DataAccess.Models;
 using EmployeeManagement.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace DemoProjectWebApi
             services.AddControllers();
             //services.AddDbContext<DemoDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DevConnection")));
             services.AddDbContextPool<AppDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("EmployeeDbConnection")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
@@ -45,6 +47,8 @@ namespace DemoProjectWebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
