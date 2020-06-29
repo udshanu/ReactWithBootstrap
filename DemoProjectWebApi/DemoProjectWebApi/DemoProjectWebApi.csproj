@@ -17,5 +17,10 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.19" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj" />
+    <ProjectReference Include="..\EmployeeManagement.Service\EmployeeManagement.Service.csproj" />
+  </ItemGroup>
+
 
 </Project>

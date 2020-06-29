@@ -6,3 +6,8 @@
 /DemoProjectWebApi/.vs/DemoProjectWebApi
 /DemoProjectWebApi/DemoProjectWebApi/bin/Debug/netcoreapp3.1
 /DemoProjectWebApi/DemoProjectWebApi/obj
+/demo-project/.vs
+/DemoProjectWebApi/EmployeeManagement.DataAccess/bin/Debug/netstandard2.0
+/DemoProjectWebApi/EmployeeManagement.DataAccess/obj
+/DemoProjectWebApi/EmployeeManagement.Service/bin/Debug/netstandard2.0
+/DemoProjectWebApi/EmployeeManagement.Service/obj

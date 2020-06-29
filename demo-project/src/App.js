@@ -10,6 +10,8 @@ import { Layout } from "./components/layout/layout";
 import { NavigationBar } from './components/navigationbar/navigationbar';
 import { Jumbotron } from './components/jumbotron/jumbotron';
 import { Main } from './components/login/main';
+import { LoginBox } from './components/login/loginbox';
+import { RegisterBox } from './components/login/registerbox';
 
 function App() {
   return (
@@ -17,13 +19,15 @@ function App() {
       <React.Fragment>
       <NavigationBar />
       <Jumbotron />
-      <Main/>
+      {/* <Main/> */}
       <Layout>
       <Router>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
           <Route path='/contact' component={Contact} />
+          <Route path='/login' component={LoginBox} />
+          <Route path='/registration' component={RegisterBox} />
           <Route component={NoMatch} />
         </Switch>
       </Router>

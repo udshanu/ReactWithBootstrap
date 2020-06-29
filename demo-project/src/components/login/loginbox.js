@@ -17,7 +17,9 @@ export const LoginBox = () => {
 
     return (
         <Styles>
-            <Container>
+            <div className="root-container">
+                <div className="box-container">
+                <Container>
                 <div className="header">Login</div>
                 <Form noValidate validated={validated} onSubmit={handleSubmit} >
                     <Form.Group controlId="formBasicUsername">
@@ -29,6 +31,8 @@ export const LoginBox = () => {
                     <Button variant="primary" type="submit" block>Submit</Button>
                 </Form>
             </Container>
+                </div>
+            </div>
         </Styles>
     )
 }

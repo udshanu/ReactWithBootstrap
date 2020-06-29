@@ -5,9 +5,12 @@ import { Styles } from '../styled/login/loginbox';
 export const RegisterBox = () => {
     return (
         <Styles>
-            <Container>
+            <div className="root-container">
+                <div className="box-container">
+                <Container>
             <div className="header">Register</div>
-            <Form noValidate validated={validated} onSubmit={handleSubmit} >
+            {/* <Form noValidate validated={validated} onSubmit={handleSubmit} > */}
+            <Form noValidate >
                     <Form.Group controlId="formBasicUsername">
                         <Form.Control type="text" placeholder="Username" />
                     </Form.Group>
@@ -20,8 +23,8 @@ export const RegisterBox = () => {
                     <Button variant="primary" type="submit" block>Submit</Button>
                 </Form>
             </Container>
+                </div>
+            </div>
         </Styles>
     )
 }
-
-export default registerbox
