@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
@@ -6,8 +6,8 @@ import { useFormik } from 'formik';
 import '../../css/register.css';
 
 const initialValues = {
-    email:'',
-    password:'',
+    email: '',
+    password: '',
     confirmPassword: ''
 }
 
@@ -26,11 +26,11 @@ const validate = values => {
     }
 
     if (!values.password) {
-        errors.name = 'Password is required.';
+        errors.password = 'Password is required.';
     }
 
     if (!values.confirmPassword) {
-        errors.name = 'Confirmation password is required.';
+        errors.confirmPassword = 'Confirmation password is required.';
     }
 
     return errors;
@@ -44,14 +44,16 @@ export const RegisterBox = () => {
         validate
     })
 
+    console.log('Errors: ', formik.errors)
+
     return (
         <Styles>
             <div className="root-container">
                 <div className="box-container">
-                <Container>
-            <div className="header">Register</div>
-            {/* <Form noValidate validated={validated} onSubmit={handleSubmit} > */}
-            {/* <Form noValidate onSubmit={handleSubmit}>
+                    <Container>
+                        <div className="header">Register</div>
+                        {/* <Form noValidate validated={validated} onSubmit={handleSubmit} > */}
+                        {/* <Form noValidate onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control type="email" name="email" placeholder="Email" value={values.email} onChange={handleInputChange} required/>
                     </Form.Group>
@@ -63,13 +65,19 @@ export const RegisterBox = () => {
                     </Form.Group>
                     <Button variant="primary" type="submit" block>Register</Button>
                 </Form> */}
-                <form onSubmit={formik.handleSubmit}>
-                    <input type="email" id="email" name="email" placeholder="Email" onChange={formik.handleChange} value={formik.values.email}/>
-                    <input type="password" id="password" name="password" placeholder="Password" onChange={formik.handleChange} value={formik.values.password}/>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onChange={formik.handleChange} value={formik.values.confirmPassword}/>
-                    <button type="submit">Submit</button>
-                </form>
-            </Container>
+                        <form onSubmit={formik.handleSubmit}>
+                                <input type="email" id="email" name="email" placeholder="Email" onChange={formik.handleChange} value={formik.values.email} />
+                                {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
+
+                                <input type="password" id="password" name="password" placeholder="Password" onChange={formik.handleChange} value={formik.values.password} />
+                                {formik.errors.password ? <div className="error">{formik.errors.password}</div> : null}
+
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onChange={formik.handleChange} value={formik.values.confirmPassword} />
+                                {formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
+
+                            <button type="submit">Submit</button>
+                        </form>
+                    </Container>
                 </div>
             </div>
         </Styles>
