@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Button, Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
@@ -13,8 +13,9 @@ const initialValues = {
     confirmPassword: ''
 }
 
-const onSubmit = values => {
+const onSubmit = (values, props) => {
     console.log('Form Data: ', values)
+    console.log('Form Data222: ', props.validationSchema.isValid())
 }
 
 const validationSchema = Yup.object({
@@ -24,15 +25,6 @@ const validationSchema = Yup.object({
 })
 
 export const RegisterBox = () => {
-
-    // const formik = useFormik({
-    //     initialValues,
-    //     onSubmit,
-    //     validationSchema
-    // })
-
-    //console.log('Touched: ', formik.touched)
-
     return (
         <Styles>
             <div className="root-container">
@@ -40,18 +32,26 @@ export const RegisterBox = () => {
                     <Container>
                         <div className="header">Register</div>
                         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                            <Form>
-                                <Field type="email" id="email" name="email" placeholder="Email" />
-                                <ErrorMessage name="email" component={TextError}/>
+                            {
+                                formik => {
+                                    console.log('Formik data: ', formik);
+                                    return (
+                                        <Form>
+                                            <Field type="email" id="email" name="email" placeholder="Email" />
+                                            <ErrorMessage name="email" component={TextError} />
 
-                                <Field type="password" id="password" name="password" placeholder="Password" />
-                                <ErrorMessage name="password" component={TextError}/>
+                                            <Field type="password" id="password" name="password" placeholder="Password" />
+                                            <ErrorMessage name="password" component={TextError} />
 
-                                <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-                                <ErrorMessage name="confirmPassword" component={TextError}/>
+                                            <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
+                                            <ErrorMessage name="confirmPassword" component={TextError} />
 
-                                <button type="submit">Submit</button>
-                            </Form>
+                                            <button type="submit">Submit</button>
+                                        </Form>
+                                    )
+                                }
+                            }
+
                         </Formik>
                     </Container>
                 </div>
