@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import '../../css/register.css';
 
@@ -39,7 +39,7 @@ export const RegisterBox = () => {
                     <Container initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         <div className="header">Register</div>
                         <Formik>
-                        <form onSubmit={formik.handleSubmit}>
+                            <Form>
                                 <input type="email" id="email" name="email" placeholder="Email" {...formik.getFieldProps('email')} />
                                 {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
 
@@ -49,8 +49,8 @@ export const RegisterBox = () => {
                                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" {...formik.getFieldProps('confirmPassword')} />
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
 
-                            <button type="submit">Submit</button>
-                        </form>
+                                <button type="submit">Submit</button>
+                            </Form>
                         </Formik>
                     </Container>
                 </div>
