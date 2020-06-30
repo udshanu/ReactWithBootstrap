@@ -67,13 +67,13 @@ export const RegisterBox = () => {
                 </Form> */}
                         <form onSubmit={formik.handleSubmit}>
                                 <input type="email" id="email" name="email" placeholder="Email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
-                                {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
+                                {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
 
                                 <input type="password" id="password" name="password" placeholder="Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
-                                {formik.errors.password ? <div className="error">{formik.errors.password}</div> : null}
+                                {formik.touched.password && formik.errors.password ? <div className="error">{formik.errors.password}</div> : null}
 
                                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.confirmPassword} />
-                                {formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
+                                {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
 
                             <button type="submit">Submit</button>
                         </form>
