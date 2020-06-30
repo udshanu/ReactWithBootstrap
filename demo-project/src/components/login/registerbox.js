@@ -16,27 +16,6 @@ const onSubmit = values => {
     console.log('Form Data: ', values)
 }
 
-// const validate = values => {
-//     let errors = {}
-
-//     if (!values.email) {
-//         errors.email = 'Email is required.';
-//     }
-//     else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-//         errors.email = 'Invalid email format.';
-//     }
-
-//     if (!values.password) {
-//         errors.password = 'Password is required.';
-//     }
-
-//     if (!values.confirmPassword) {
-//         errors.confirmPassword = 'Confirmation password is required.';
-//     }
-
-//     return errors;
-// }
-
 const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format.').required('Email is required.'),
     password: Yup.string().required('Password is required.'),
@@ -49,7 +28,6 @@ export const RegisterBox = () => {
         initialValues,
         onSubmit,
         validationSchema
-        //validate
     })
 
     console.log('Touched: ', formik.touched)
@@ -60,27 +38,14 @@ export const RegisterBox = () => {
                 <div className="box-container">
                     <Container>
                         <div className="header">Register</div>
-                        {/* <Form noValidate validated={validated} onSubmit={handleSubmit} > */}
-                        {/* <Form noValidate onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Control type="email" name="email" placeholder="Email" value={values.email} onChange={handleInputChange} required/>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Control type="password" name="password" placeholder="Password" value={values.password} onChange={handleInputChange}/>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicConfirmPassword">
-                        <Form.Control type="password" name="confirmPassword" placeholder="Confirm Password" value={values.confirmPassword} onChange={handleInputChange}/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" block>Register</Button>
-                </Form> */}
                         <form onSubmit={formik.handleSubmit}>
-                                <input type="email" id="email" name="email" placeholder="Email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
+                                <input type="email" id="email" name="email" placeholder="Email" {...formik.getFieldProps('email')} />
                                 {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
 
-                                <input type="password" id="password" name="password" placeholder="Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
+                                <input type="password" id="password" name="password" placeholder="Password" {...formik.getFieldProps('password')} />
                                 {formik.touched.password && formik.errors.password ? <div className="error">{formik.errors.password}</div> : null}
 
-                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.confirmPassword} />
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" {...formik.getFieldProps('confirmPassword')} />
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
 
                             <button type="submit">Submit</button>
