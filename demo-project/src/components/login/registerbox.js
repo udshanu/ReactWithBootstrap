@@ -5,6 +5,7 @@ import useForm from '../useform/useForm';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import '../../css/register.css';
+import TextError from '../texterror/TextError';
 
 const initialValues = {
     email: '',
@@ -41,13 +42,13 @@ export const RegisterBox = () => {
                         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                             <Form>
                                 <Field type="email" id="email" name="email" placeholder="Email" />
-                                <ErrorMessage name="email"/>
+                                <ErrorMessage name="email" component={TextError}/>
 
                                 <Field type="password" id="password" name="password" placeholder="Password" />
-                                <ErrorMessage name="password"/>
+                                <ErrorMessage name="password" component={TextError}/>
 
                                 <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-                                <ErrorMessage name="confirmPassword"/>
+                                <ErrorMessage name="confirmPassword" component={TextError}/>
 
                                 <button type="submit">Submit</button>
                             </Form>
