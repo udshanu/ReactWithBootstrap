@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
-import { useFormik, yupToFormErrors } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import '../../css/register.css';
 
@@ -24,20 +24,21 @@ const validationSchema = Yup.object({
 
 export const RegisterBox = () => {
 
-    const formik = useFormik({
-        initialValues,
-        onSubmit,
-        validationSchema
-    })
+    // const formik = useFormik({
+    //     initialValues,
+    //     onSubmit,
+    //     validationSchema
+    // })
 
-    console.log('Touched: ', formik.touched)
+    //console.log('Touched: ', formik.touched)
 
     return (
         <Styles>
             <div className="root-container">
                 <div className="box-container">
-                    <Container>
+                    <Container initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         <div className="header">Register</div>
+                        <Formik>
                         <form onSubmit={formik.handleSubmit}>
                                 <input type="email" id="email" name="email" placeholder="Email" {...formik.getFieldProps('email')} />
                                 {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
@@ -50,6 +51,7 @@ export const RegisterBox = () => {
 
                             <button type="submit">Submit</button>
                         </form>
+                        </Formik>
                     </Container>
                 </div>
             </div>
