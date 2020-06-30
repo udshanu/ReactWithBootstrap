@@ -5,41 +5,44 @@ import useForm from '../useform/useForm';
 import { useFormik } from 'formik';
 import '../../css/register.css';
 
-const initialFieldValues = {
-    email : '',
-    password : '',
-    confirmPassword : ''
+const initialValues = {
+    email:'',
+    password:'',
+    confirmPassword: ''
+}
+
+const onSubmit = values => {
+    console.log('Form Data: ', values)
+}
+
+const validate = values => {
+    let errors = {}
+
+    if (!values.email) {
+        errors.email = 'Email is required.';
+    }
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email format.';
+    }
+
+    if (!values.password) {
+        errors.name = 'Password is required.';
+    }
+
+    if (!values.confirmPassword) {
+        errors.name = 'Confirmation password is required.';
+    }
+
+    return errors;
 }
 
 export const RegisterBox = () => {
 
     const formik = useFormik({
-        initialValues: {
-            email:'',
-            password:'',
-            confirmPassword: ''
-        },
-        onSubmit: values => {
-            console.log('Form Data: ', values)
-        }
+        initialValues,
+        onSubmit,
+        validate
     })
-
-    const validate = () => {
-
-    }
-
-    const {
-        values,
-        setValues,
-        errors,
-        setErrors,
-        handleInputChange
-    } = useForm(initialFieldValues)
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        console.log(values)
-    }
 
     return (
         <Styles>
