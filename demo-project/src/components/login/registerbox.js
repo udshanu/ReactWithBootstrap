@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
-import { useFormik } from 'formik';
+import { useFormik, yupToFormErrors } from 'formik';
+import * as Yup from 'yup';
 import '../../css/register.css';
 
 const initialValues = {
@@ -15,33 +16,40 @@ const onSubmit = values => {
     console.log('Form Data: ', values)
 }
 
-const validate = values => {
-    let errors = {}
+// const validate = values => {
+//     let errors = {}
 
-    if (!values.email) {
-        errors.email = 'Email is required.';
-    }
-    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email format.';
-    }
+//     if (!values.email) {
+//         errors.email = 'Email is required.';
+//     }
+//     else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//         errors.email = 'Invalid email format.';
+//     }
 
-    if (!values.password) {
-        errors.password = 'Password is required.';
-    }
+//     if (!values.password) {
+//         errors.password = 'Password is required.';
+//     }
 
-    if (!values.confirmPassword) {
-        errors.confirmPassword = 'Confirmation password is required.';
-    }
+//     if (!values.confirmPassword) {
+//         errors.confirmPassword = 'Confirmation password is required.';
+//     }
 
-    return errors;
-}
+//     return errors;
+// }
+
+const validationSchema = Yup.object({
+    email: Yup.string().email('Invalid email format.').required('Email is required.'),
+    password: Yup.string().required('Password is required.'),
+    confirmPassword: Yup.string().required('Confirmation password is required.')
+})
 
 export const RegisterBox = () => {
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validate
+        validationSchema
+        //validate
     })
 
     console.log('Touched: ', formik.touched)
