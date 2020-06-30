@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import {Button, Container } from 'react-bootstrap';
 import { Styles } from '../styled/login/loginbox';
 import useForm from '../useform/useForm';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import '../../css/register.css';
 
@@ -36,18 +36,18 @@ export const RegisterBox = () => {
         <Styles>
             <div className="root-container">
                 <div className="box-container">
-                    <Container initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    <Container>
                         <div className="header">Register</div>
-                        <Formik>
+                        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                             <Form>
                                 <Field type="email" id="email" name="email" placeholder="Email" />
-                                {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
+                                <ErrorMessage name="email"/>
 
                                 <Field type="password" id="password" name="password" placeholder="Password" />
-                                {formik.touched.password && formik.errors.password ? <div className="error">{formik.errors.password}</div> : null}
+                                <ErrorMessage name="password"/>
 
                                 <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-                                {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className="error">{formik.errors.confirmPassword}</div> : null}
+                                <ErrorMessage name="confirmPassword"/>
 
                                 <button type="submit">Submit</button>
                             </Form>
