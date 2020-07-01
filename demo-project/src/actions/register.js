@@ -19,8 +19,15 @@ export const fetchAll = () => {
     
 }
 
-// export const create = (data, onSuccess) => {
-//     return dispatch => {
+export const create = (data, onSuccess) => {
+    return dispatch => {
+        api.register().create(data).then(response => {
+            dispatch({
+                type: ACTION_TYPES.CREATE,
+                payload: response.data
+            })
 
-//     };
-// }
+            onSuccess();
+        }).catch(err => console.log(err))
+    };
+}

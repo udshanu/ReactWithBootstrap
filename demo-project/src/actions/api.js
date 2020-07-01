@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = "http://localhost:7068/api/";
+//const baseUrl = "http://localhost:7068/api/";
+const baseUrl = "http://localhost:3477/";
 
 export default {
     dCandidate(url = baseUrl + 'user/'){
@@ -10,6 +11,11 @@ export default {
             create: newRecord => axios.post(url, newRecord),
             update: (id, updateRecord) => axios.put(url + id, updateRecord),
             delete: id => axios.delete(url + id)
+        }
+    },
+    register(url = baseUrl + 'Account/Register/'){
+        return {
+            create: newRecord => axios.post(url, newRecord)
         }
     }
 }
