@@ -19,8 +19,8 @@ const onSubmit = (values) => {
 
 const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format.').required('Email is required.'),
-    password: Yup.string().required('Password is required.'),
-    confirmPassword: Yup.string().required('Confirmation password is required.')
+    password: Yup.string().min(6).required('Password is required.'),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match.').required('Confirmation password is required.')
 })
 
 export const RegisterBox = () => {
