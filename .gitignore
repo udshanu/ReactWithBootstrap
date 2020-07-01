@@ -13,3 +13,5 @@
 /DemoProjectWebApi/EmployeeManagement.Service/obj
 /DemoProjectWebApi/EmployeeManagement.DataAccess/bin/Debug/netstandard2.1
 /DemoProjectWebApi/EmployeeManagement.Service/bin/Debug/netstandard2.1
+/DemoProjectWebApi/EmployeeManagement/bin/Debug/netcoreapp3.1
+/DemoProjectWebApi/EmployeeManagement/obj

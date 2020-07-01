@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DemoProjectWebApi.Controllers
+namespace EmployeeManagement.Controllers
 {
-    //[ApiController]
-    //[Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         [HttpGet]
