@@ -27,14 +27,14 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel data)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-                    var result = await userManager.CreateAsync(user, model.Password);
+                    var user = new IdentityUser { UserName = data.Email, Email = data.Email };
+                    var result = await userManager.CreateAsync(user, data.Password);
 
                     if (result.Succeeded)
                     {

@@ -20,8 +20,9 @@ export const fetchAll = () => {
 }
 
 export const create = (data, onSuccess) => {
+    var aa = JSON.stringify(data);
     return dispatch => {
-        api.register().create(data).then(response => {
+        api.register().create(JSON.stringify(data)).then(response => {
             dispatch({
                 type: ACTION_TYPES.CREATE,
                 payload: response.data

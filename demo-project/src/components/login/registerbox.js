@@ -6,24 +6,41 @@ import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import '../../css/register.css';
 import TextError from '../texterror/TextError';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/register';
+import { store } from '../../actions/store';
 
 const initialValues = {
-    email: '',
-    password: '',
-    confirmPassword: ''
+    Email: '',
+    Password: '',
+    ConfirmPassword: ''
 }
 
-const onSubmit = (values) => {
+const onSubmit = (values, { setSubmitting, props }) => {
     console.log('Form Data: ', values)
+    console.log('Form props: ', props)
+    store.dispatch(actions.create(values, () => {window.alert('Inserted')}))
+    //actions.create(values, () => {window.alert('Inserted')})
+
+    // setTimeout(() => {
+    //     console.log({ mode: props });
+    //     alert(JSON.stringify(values, null, 2));
+    //     setSubmitting(false);
+    //   }, 1000);
+    
+    //createEmployee(values, () => {window.alert('Inserted')})
+    //props.createEmployee(values, () => {window.alert('Inserted')})
+    //props.createEmployee(values, () => {window.alert('Insert.')})
 }
 
 const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email format.').required('Email is required.'),
-    password: Yup.string().min(6).required('Password is required.'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match.').required('Confirmation password is required.')
+    Email: Yup.string().email('Invalid email format.').required('Email is required.'),
+    Password: Yup.string().min(6).required('Password is required.'),
+    ConfirmPassword: Yup.string().oneOf([Yup.ref('Password')], 'Passwords must match.').required('Confirmation password is required.')
 })
 
-export const RegisterBox = () => {
+const RegisterBox = (props) => {
+    console.log('props: --- : ', props)
     return (
         <Styles>
             <div className="root-container">
@@ -34,16 +51,17 @@ export const RegisterBox = () => {
                             {
                                 formik => {
                                     console.log('Formik data: ', formik);
+                                    console.log('Formik propssss: ', props);
                                     return (
                                         <Form>
-                                            <Field type="email" id="email" name="email" placeholder="Email" />
-                                            <ErrorMessage name="email" component={TextError} />
+                                            <Field type="email" id="Email" name="Email" placeholder="Email" />
+                                            <ErrorMessage name="Email" component={TextError} />
 
-                                            <Field type="password" id="password" name="password" placeholder="Password" />
-                                            <ErrorMessage name="password" component={TextError} />
+                                            <Field type="password" id="Password" name="Password" placeholder="Password" />
+                                            <ErrorMessage name="Password" component={TextError} />
 
-                                            <Field type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-                                            <ErrorMessage name="confirmPassword" component={TextError} />
+                                            <Field type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
+                                            <ErrorMessage name="ConfirmPassword" component={TextError} />
 
                                             <button type="submit">Submit</button>
                                         </Form>
@@ -58,3 +76,18 @@ export const RegisterBox = () => {
         </Styles>
     )
 }
+
+const mapStateToProps = state => ({
+    registerList: state.registerReducer.employeelist
+})
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createEmployee : () => dispatch(actions.create)
+        //createEmployee : (actions.create)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterBox)
+//export default RegisterBox
+

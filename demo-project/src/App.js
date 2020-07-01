@@ -1,7 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { store } from './actions/store';
 import { Home } from "./components/home/home";
 import { About } from "./components/about/about";
 import { Contact } from "./components/contact/contact";
@@ -11,7 +9,9 @@ import { NavigationBar } from './components/navigationbar/navigationbar';
 import { Jumbotron } from './components/jumbotron/jumbotron';
 import { Main } from './components/login/main';
 import { LoginBox } from './components/login/loginbox';
-import { RegisterBox } from './components/login/registerbox';
+import RegisterBox from './components/login/registerbox';
+import { Provider } from 'react-redux';
+import { store } from './actions/store';
 
 function App() {
   return (
