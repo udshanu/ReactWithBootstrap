@@ -13,9 +13,8 @@ const initialValues = {
     confirmPassword: ''
 }
 
-const onSubmit = (values, props) => {
+const onSubmit = (values) => {
     console.log('Form Data: ', values)
-    console.log('Form Data222: ', props.validationSchema.isValid())
 }
 
 const validationSchema = Yup.object({
