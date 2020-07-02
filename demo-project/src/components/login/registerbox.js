@@ -16,9 +16,9 @@ const initialValues = {
     ConfirmPassword: ''
 }
 
-const onSubmit = (values, { setSubmitting, props }) => {
+const onSubmit = values => {
     console.log('Form Data: ', values)
-    console.log('Form props: ', props)
+    console.log('Form Data JSON: ',JSON.stringify(values));
     store.dispatch(actions.create(values, () => {window.alert('Inserted')}))
     //actions.create(values, () => {window.alert('Inserted')})
 
@@ -39,8 +39,8 @@ const validationSchema = Yup.object({
     ConfirmPassword: Yup.string().oneOf([Yup.ref('Password')], 'Passwords must match.').required('Confirmation password is required.')
 })
 
-const RegisterBox = (props) => {
-    console.log('props: --- : ', props)
+const RegisterBox = () => {
+    //console.log('props: --- : ', props)
     return (
         <Styles>
             <div className="root-container">
@@ -50,8 +50,8 @@ const RegisterBox = (props) => {
                         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                             {
                                 formik => {
-                                    console.log('Formik data: ', formik);
-                                    console.log('Formik propssss: ', props);
+                                    // console.log('Formik data: ', formik);
+                                    // console.log('Formik propssss: ', props);
                                     return (
                                         <Form>
                                             <Field type="email" id="Email" name="Email" placeholder="Email" />

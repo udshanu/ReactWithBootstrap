@@ -27,7 +27,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel data)
+        public async Task<ActionResult> Register([FromBody]RegisterViewModel data)
         {
             try
             {
