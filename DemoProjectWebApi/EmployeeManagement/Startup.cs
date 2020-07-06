@@ -30,7 +30,12 @@ namespace EmployeeManagement
             //services.AddDbContext<DemoDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DevConnection")));
             services.AddDbContextPool<AppDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("EmployeeDbConnection")));
             services.AddCors();
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
         }
 

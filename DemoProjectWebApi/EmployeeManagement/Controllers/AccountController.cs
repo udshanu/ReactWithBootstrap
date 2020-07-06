@@ -27,14 +27,14 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register([FromBody]RegisterViewModel data)
+        public async Task<ActionResult> Register([FromBody]RegisterViewModel employee)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new IdentityUser { UserName = data.Email, Email = data.Email };
-                    var result = await userManager.CreateAsync(user, data.Password);
+                    var user = new IdentityUser { UserName = employee.Email, Email = employee.Email };
+                    var result = await userManager.CreateAsync(user, employee.Password);
 
                     if (result.Succeeded)
                     {
@@ -60,6 +60,28 @@ namespace EmployeeManagement.Controllers
             }
 
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login([FromBody]LoginViewModel login)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, login.RememberMe, false);
+
+                    return Json(result);
+                }
+                else
+                {
+                    return Json(new ErrorResponseMessage { Message = "Invaid Login Attempt." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorResponseMessage { Message = "Invaid Login Attempt" });
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
-import { ACTION_TYPES } from '../actions/register';
+import { ACTION_TYPES } from '../actions/RegisterAction';
 
 const initialState = {
-    employeelist: []
+    employeelist: [],
+    loginData: []
 }
 
 export const registerReducer = (state = initialState, action) => {
@@ -9,7 +10,12 @@ export const registerReducer = (state = initialState, action) => {
         case ACTION_TYPES.CREATE:
             return{
                 ...state,
-                list: [...state.list, action.payload] 
+                employeelist: [...state.employeelist, action.payload] 
+            }
+        case ACTION_TYPES.LOGIN:
+            return{
+                ...state,
+                loginData: [...state.loginData, action.payload] 
             }
     
         default:

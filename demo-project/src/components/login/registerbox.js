@@ -7,7 +7,8 @@ import * as Yup from 'yup';
 import '../../css/register.css';
 import TextError from '../texterror/TextError';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/register';
+//import * as actions from '../../actions/register';
+import * as actions from '../../actions/RegisterAction';
 import { store } from '../../actions/store';
 
 const initialValues = {
