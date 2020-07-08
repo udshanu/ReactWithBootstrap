@@ -13,10 +13,17 @@ export default {
     //         delete: id => axios.delete(url + id)
     //     }
     // },
-    register(url = baseUrl + 'Account/'){
+    auth(url = baseUrl + 'Account/'){
         return {
-            create: data => axios.post(url + 'Register/', data),
-            login: data => axios.post(url + 'Login/', data)
+            signUp: data => axios.post(url + 'Register/', data),
+            signIn: data => axios.post(url + 'Login/', data),
+            signOut: () => axios.post(url + 'Logout/')
+        }
+    },
+    project(url = baseUrl + 'Project/'){
+        return {
+            create: data => axios.post(url + 'CreateProject/', data),
+            getAll: () => axios.get(url + 'GetAllProjects/')
         }
     }
 }

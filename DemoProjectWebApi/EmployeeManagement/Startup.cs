@@ -37,6 +37,7 @@ namespace EmployeeManagement
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

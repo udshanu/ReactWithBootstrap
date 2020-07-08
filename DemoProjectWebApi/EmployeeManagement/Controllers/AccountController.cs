@@ -83,5 +83,20 @@ namespace EmployeeManagement.Controllers
                 return Json(new ErrorResponseMessage { Message = "Invaid Login Attempt" });
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            try
+            {
+                await signInManager.SignOutAsync();
+                return Json(new { succeeded = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { succeeded = false });
+            }
+
+        }
     }
 }

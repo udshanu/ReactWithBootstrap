@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { signUp } from '../../store/actions/authActions'
+import { connect } from 'react-redux'
 
 class SignUp extends Component {
     state = {
         email: '',
         password: '',
-        firstName: '',
-        lastName: ''
+        confirmPassword: ''
     }
 
     handleChange = (e) => {
@@ -17,6 +18,7 @@ class SignUp extends Component {
     handleSubmit = (e) => {
         e.preventDefault(); 
         console.log(this.state);
+        this.props.signup(this.state)
     }
 
     render() {
@@ -33,12 +35,8 @@ class SignUp extends Component {
                         <input type="password" id="password" onChange={this.handleChange} />
                     </div>
                     <div className="input-field">
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" onChange={this.handleChange} />
+                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" onChange={this.handleChange} />
                     </div>
                     <div className="input-field">
                         <button className="btn pink lighten-1 z-depth-0">Sign up</button>
@@ -49,4 +47,10 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signup : (signup) => dispatch(signUp(signup))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp)
