@@ -18,6 +18,7 @@ export class Dashboard extends Component {
     render() {
         console.log(this.props);
         const { projects, auth } = this.props;
+        console.log('auth from local storage', auth)
         if (!auth) return <Redirect to='/signin' />
         return (
             <div className="dashboard container">
@@ -37,13 +38,10 @@ export class Dashboard extends Component {
 const mapStateToProps = (state) => {
     return {
         projects: state.project.projects,
-        auth: state.auth.succeeded
+        //auth: state.auth.succeeded
+        auth: localStorage.getItem('isLoggedIn')
     }
 }
-
-// const mapDispatchToProps = {
-//     getAllProjects: () => dispatch(getAllProjects())
-// }
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const ProjectDetails = (props) => {
+    const { auth } = props;
+    if (!auth) return <Redirect to='/signin' />
+
     return (
         <div className="container section project-details">
             <div className="card z-depth-0">
@@ -23,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
     return {
         ...state,
-        project: state.project.projects[id - 1]
+        project: state.project.projects[id - 1],
+        auth: localStorage.getItem('isLoggedIn')
     }
 }
 

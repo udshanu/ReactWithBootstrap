@@ -23,6 +23,7 @@ class CreateProject extends Component {
     render() {
         const { auth } = this.props;
         if (!auth) return <Redirect to='/signin' />
+
         return (
             <div className="container">
             <form onSubmit={this.handleSubmit} className="white">
@@ -46,7 +47,7 @@ class CreateProject extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth.succeeded
+        auth: localStorage.getItem('isLoggedIn')
     }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { signUp } from '../../store/actions/authActions'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
 
 class SignUp extends Component {
     state = {
@@ -22,6 +23,9 @@ class SignUp extends Component {
     }
 
     render() {
+        const { auth } = this.props
+        if (auth) return <Redirect to='/' />
+
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
@@ -47,10 +51,16 @@ class SignUp extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: localStorage.getItem('isLoggedIn')
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         signup : (signup) => dispatch(signUp(signup))
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

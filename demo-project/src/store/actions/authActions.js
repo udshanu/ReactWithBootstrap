@@ -17,6 +17,7 @@ export const signIn = (credentials) => {
             console.log('Login Response: ', response);
 
             if (response.data.succeeded) {
+                localStorage.setItem('isLoggedIn', true);
                 dispatch({type: 'LOGIN_SUCCESS', payload: response.data});
             }
             else {
@@ -36,6 +37,7 @@ export const signOut = () => {
             console.log('signOut Response: ', response);
 
             if (response.data.succeeded) {
+                localStorage.removeItem('isLoggedIn');
                 dispatch({type: 'SIGNOUT_SUCCESS', payload: response.data});
             }
             else {
