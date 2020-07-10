@@ -6,6 +6,7 @@ using EmployeeManagement.DataAccess.Models;
 using EmployeeManagement.Models;
 using EmployeeManagement.Service;
 using EmployeeManagement.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -19,6 +20,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult GetAllProjects()
         {
             var projects = this._projectService.GetAllProjects();
@@ -27,6 +29,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Employee")]
         public ActionResult CreateProject([FromBody]ProjectViewModel modelProject)
         {
             try

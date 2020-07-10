@@ -19,6 +19,16 @@ export const getAllProjects = () => {
             console.log('All project response: ', response);
             dispatch({type: 'GET_ALL_PROJECTS', payload: response.data});
         }).catch((err) => {
+            if (!err.response) {
+                // network error
+                var errorStatus = 'Error: Network Error';
+                console.log('Error: Network Error', errorStatus);
+            } else {
+                var errorStatus = err.response.data.message;
+                console.log('OTher error', errorStatus);
+            }
+
+            localStorage.removeItem('token');
             dispatch({type: 'GET_ALL_PROJECTS_ERROR', err});
         })
         

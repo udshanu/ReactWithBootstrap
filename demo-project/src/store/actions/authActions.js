@@ -16,13 +16,9 @@ export const signIn = (credentials) => {
         api.auth().signIn(credentials).then((response) => {
             console.log('Login Response: ', response);
 
-            if (response.data.succeeded) {
-                localStorage.setItem('isLoggedIn', true);
-                dispatch({type: 'LOGIN_SUCCESS', payload: response.data});
-            }
-            else {
-                dispatch({type: 'LOGIN_ERROR'});
-            }
+            localStorage.setItem('token', response.data.token);
+
+            dispatch({type: 'LOGIN_SUCCESS', payload: response.data});
             
         }).catch((err) => {
             dispatch({type: 'LOGIN_ERROR', err});
@@ -37,7 +33,7 @@ export const signOut = () => {
             console.log('signOut Response: ', response);
 
             if (response.data.succeeded) {
-                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('token');
                 dispatch({type: 'SIGNOUT_SUCCESS', payload: response.data});
             }
             else {

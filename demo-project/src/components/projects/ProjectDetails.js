@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         ...state,
         project: state.project.projects[id - 1],
-        auth: localStorage.getItem('isLoggedIn')
+        auth: localStorage.getItem('token')
     }
 }
 

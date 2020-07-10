@@ -23,7 +23,7 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        succeeded: localStorage.getItem('isLoggedIn')
+        succeeded: localStorage.getItem('token')
     }
 }
 

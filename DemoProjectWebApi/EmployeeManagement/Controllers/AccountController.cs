@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EmployeeManagement.Controllers
 {
+
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ApplicationSettings _appSettings;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._appSettings = appSettings.Value;
         }
 
         [HttpGet]
@@ -33,8 +43,10 @@ namespace EmployeeManagement.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    employee.Role = "Employee";
                     var user = new IdentityUser { UserName = employee.Email, Email = employee.Email };
-                    var result = await userManager.CreateAsync(user, employee.Password);
+                    var result = await _userManager.CreateAsync(user, employee.Password);
+                    await _userManager.AddToRoleAsync(user, employee.Role);
 
                     if (result.Succeeded)
                     {
@@ -63,25 +75,42 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody]LoginViewModel login)
+        public async Task<ActionResult> Login([FromBody]LoginViewModel model)
         {
             try
             {
-                if (ModelState.IsValid)
+                var user = await this._userManager.FindByNameAsync(model.Email);
+                if (user != null && await this._userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    //var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, login.RememberMe, false);
-                    var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, true, false);
+                    //Get role assigned to the user
+                    var role = await _userManager.GetRolesAsync(user);
+                    IdentityOptions _options = new IdentityOptions();
 
-                    return Json(result);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[] {
+                            new Claim("UserID",user.Id.ToString()),
+                            new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault()),
+                            new Claim("UserName", user.UserName.ToString())
+                        }),
+                        Expires = DateTime.UtcNow.AddMinutes(5),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                    var token = tokenHandler.WriteToken(securityToken);
+
+                    return Ok(new { token });
                 }
                 else
                 {
-                    return Json(new ErrorResponseMessage { Message = "Invaid Login Attempt." });
+                    return BadRequest(new { message = "Username or password is incorrect." });
                 }
             }
             catch (Exception ex)
             {
-                return Json(new ErrorResponseMessage { Message = "Invaid Login Attempt" });
+
+                throw;
             }
         }
 
@@ -90,7 +119,7 @@ namespace EmployeeManagement.Controllers
         {
             try
             {
-                await signInManager.SignOutAsync();
+                await _signInManager.SignOutAsync();
                 return Json(new { succeeded = true });
             }
             catch (Exception ex)

@@ -54,7 +54,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
     return {
         authError: state.auth.authError,
-        auth: localStorage.getItem('isLoggedIn')
+        auth: localStorage.getItem('token')
     }
 }
 

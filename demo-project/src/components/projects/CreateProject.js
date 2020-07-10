@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { createProject } from '../../store/actions/projectActions';
 import { Redirect } from 'react-router-dom';
+import { USER_ROLE_TYPES } from '../../enums/UserRoles';
 
 class CreateProject extends Component {
     state = {
@@ -21,8 +22,11 @@ class CreateProject extends Component {
     }
 
     render() {
-        const { auth } = this.props;
+        const { auth, userRole } = this.props;
         if (!auth) return <Redirect to='/signin' />
+        console.log('UserRole from Create Componenet ', userRole)
+        // if  (userRole != 'Admin') return <Redirect to='/forbidden' />
+        if  (userRole != USER_ROLE_TYPES.ADMIN) return <Redirect to='/forbidden' />
 
         return (
             <div className="container">
@@ -47,7 +51,8 @@ class CreateProject extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: localStorage.getItem('isLoggedIn')
+        auth: localStorage.getItem('token'),
+        userRole: state.auth.userRole
     }
 }
 

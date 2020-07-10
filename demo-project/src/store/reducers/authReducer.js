@@ -1,7 +1,9 @@
 
 const initState = {
     authError: null,
-    succeeded: false
+    succeeded: false,
+    userRole: '',
+    UserName: ''
 }
 
 const authReducer = (state = initState, action) => {
@@ -15,10 +17,18 @@ const authReducer = (state = initState, action) => {
             return state;
         case 'LOGIN_SUCCESS':
             console.log('login success ', action.payload);
+            var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+            console.log('Payload from login: ', payload);
+            var userRole = payload.role;
+            console.log('userRole from login: ', userRole);
+            var userName = payload.UserName
+            console.log('userName from login: ', userName);
             return {
                 ...state,
             authError: null,
-            succeeded: action.payload.succeeded
+            succeeded: action.payload.succeeded,
+            userRole: userRole,
+            UserName: userName
             };
         case 'LOGIN_ERROR':
             console.log('login error ');

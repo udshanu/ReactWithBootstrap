@@ -23,7 +23,9 @@ export default {
     project(url = baseUrl + 'Project/'){
         return {
             create: data => axios.post(url + 'CreateProject/', data),
-            getAll: () => axios.get(url + 'GetAllProjects/')
+            //getAll: () => axios.get(url + 'GetAllProjects/')
+            getAll: () => axios.get(url + 'GetAllProjects/', {headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`}})
+            //getAll: () => axios.get(baseUrl + 'UserProfile/' + 'GetUserProfile/', {headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`}})
         }
     }
 }

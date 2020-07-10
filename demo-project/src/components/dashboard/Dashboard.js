@@ -20,26 +20,26 @@ export class Dashboard extends Component {
         const { projects, auth } = this.props;
         console.log('auth from local storage', auth)
         if (!auth) return <Redirect to='/signin' />
-        return (
-            <div className="dashboard container">
-                <div className="row">
-                    <div className="col s12 m6">
-                        <ProjectList projects={projects} />
-                    </div>
-                    <div className="col s12 m5 offset-m1">
-                        <Notifications />
+        
+            return (
+                <div className="dashboard container">
+                    <div className="row">
+                        <div className="col s12 m6">
+                            <ProjectList projects={projects} />
+                        </div>
+                        <div className="col s12 m5 offset-m1">
+                            <Notifications />
+                        </div>
                     </div>
                 </div>
-            </div>
-        )
+            )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         projects: state.project.projects,
-        //auth: state.auth.succeeded
-        auth: localStorage.getItem('isLoggedIn')
+        auth: localStorage.getItem('token')
     }
 }
 

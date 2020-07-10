@@ -53,7 +53,7 @@ class SignUp extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: localStorage.getItem('isLoggedIn')
+        auth: localStorage.getItem('token')
     }
 }
 
