@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using EmployeeManagement.DataAccess.Models;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -19,11 +20,11 @@ namespace EmployeeManagement.Controllers
 
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationSettings _appSettings;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IOptions<ApplicationSettings> appSettings)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<ApplicationSettings> appSettings)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -44,7 +45,7 @@ namespace EmployeeManagement.Controllers
                 if (ModelState.IsValid)
                 {
                     employee.Role = "Employee";
-                    var user = new IdentityUser { UserName = employee.Email, Email = employee.Email };
+                    var user = new ApplicationUser { UserName = employee.Email, Email = employee.Email };
                     var result = await _userManager.CreateAsync(user, employee.Password);
                     await _userManager.AddToRoleAsync(user, employee.Role);
 

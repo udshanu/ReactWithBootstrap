@@ -37,7 +37,7 @@ namespace EmployeeManagement
             //services.AddDbContext<DemoDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DevConnection")));
             services.AddDbContextPool<AppDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("EmployeeDbConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = false;

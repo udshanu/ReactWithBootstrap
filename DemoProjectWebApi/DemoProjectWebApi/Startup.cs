@@ -33,7 +33,7 @@ namespace DemoProjectWebApi
             services.AddControllersWithViews();
             //services.AddDbContext<DemoDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DevConnection")));
             services.AddDbContextPool<AppDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("EmployeeDbConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IEmployeeService, EmployeeService>();
         }
 
