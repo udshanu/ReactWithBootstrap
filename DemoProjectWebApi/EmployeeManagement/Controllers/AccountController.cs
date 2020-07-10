@@ -57,7 +57,9 @@ namespace EmployeeManagement.Controllers
 
                     if (result.Succeeded)
                     {
-                        return Json(new SuccessResponseMessage { Message = "Employee saved successfully." });
+                        string token = await this.GenerateToken(user);
+
+                        return Json(new { token });
                     }
                     else
                     {
@@ -89,23 +91,8 @@ namespace EmployeeManagement.Controllers
                 var user = await this._userManager.FindByNameAsync(model.Email);
                 if (user != null && await this._userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    //Get role assigned to the user
-                    var role = await _userManager.GetRolesAsync(user);
-                    IdentityOptions _options = new IdentityOptions();
 
-                    var tokenDescriptor = new SecurityTokenDescriptor
-                    {
-                        Subject = new ClaimsIdentity(new Claim[] {
-                            new Claim("UserID",user.Id.ToString()),
-                            new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault()),
-                            new Claim("UserName", user.UserName.ToString())
-                        }),
-                        Expires = DateTime.UtcNow.AddMinutes(5),
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
-                    };
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                    var token = tokenHandler.WriteToken(securityToken);
+                    string token = await this.GenerateToken(user);
 
                     return Ok(new { token });
                 }
@@ -119,6 +106,30 @@ namespace EmployeeManagement.Controllers
 
                 throw;
             }
+        }
+
+        private async Task<string> GenerateToken(ApplicationUser user)
+        {
+            var role = await _userManager.GetRolesAsync(user);
+            IdentityOptions _options = new IdentityOptions();
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] {
+                            new Claim("UserID",user.Id.ToString()),
+                            new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault()),
+                            new Claim("UserName", user.UserName.ToString()),
+                            new Claim("FirstName", user.FirstName.ToString()),
+                            new Claim("LastName", user.LastName.ToString())
+                        }),
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(securityToken);
+
+            return token;
         }
 
         [HttpPost]
