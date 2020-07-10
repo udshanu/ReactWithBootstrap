@@ -45,7 +45,13 @@ namespace EmployeeManagement.Controllers
                 if (ModelState.IsValid)
                 {
                     employee.Role = "Employee";
-                    var user = new ApplicationUser { UserName = employee.Email, Email = employee.Email };
+                    var user = new ApplicationUser
+                    {
+                        UserName = employee.Email,
+                        Email = employee.Email,
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName
+                    };
                     var result = await _userManager.CreateAsync(user, employee.Password);
                     await _userManager.AddToRoleAsync(user, employee.Role);
 
